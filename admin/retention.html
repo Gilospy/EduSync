@@ -26,7 +26,6 @@
                 <a href="students.html"><i class="fa-solid fa-users"></i> Students</a>
                 <a href="alerts.html"><i class="fa-solid fa-bell"></i> Faculty Alerts</a>
                 <a href="retention.html" class="active"><i class="fa-solid fa-triangle-exclamation"></i> Retention</a>
-                <a href="#"><i class="fa-solid fa-book"></i> Assignments</a>
             </nav>
 
             <div class="user-profile">
@@ -44,10 +43,7 @@
                 <div class="breadcrumb">
                     <i class="fa-solid fa-triangle-exclamation"></i> Student Risk & Retention Analytics
                 </div>
-                <div class="top-bar-actions">
-                    <button class="btn-refresh"><i class="fa-solid fa-sync"></i> Refresh</button>
-                    <button class="btn-export"><i class="fa-solid fa-download"></i> Export</button>
-                </div>
+
             </header>
 
             <!-- Content Area -->
@@ -63,11 +59,13 @@
                 </div>
 
                 <!-- Risk Summary Stats -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px;">
                     <div class="kpi-card">
                         <div class="label">HIGH RISK STUDENTS</div>
                         <div class="value" style="color: #ef4444;">12</div>
-                        <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">Immediate intervention needed</div>
+                        <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">Immediate intervention needed
+                        </div>
                     </div>
                     <div class="kpi-card">
                         <div class="label">ENGAGEMENT DROP-OFF</div>
@@ -87,13 +85,13 @@
                         Power BI Risk Trends & Course Heatmap
                     </h2>
                     <div class="powerbi-container" style="background: #f9fafb; padding: 20px; border-radius: 8px;">
-                        <div class="powerbi-wrapper" style="width: 100%; height: 500px; border-radius: 6px; overflow: hidden;">
-                            <iframe title="Risk Trends Heatmap"
-                                width="100%"
-                                height="100%"
-                                src="https://app.powerbi.com/reportEmbed?reportId=50204a66-c6a3-425d-8043-00ca0f59bf3f&autoAuth=true&ctid=d1d8f653-6844-454b-a4fc-c52bc2c76e72"
-                                frameborder="0"
-                                allowFullScreen="true"></iframe>
+                        <div class="powerbi-wrapper"
+                            style="width: 100%; height: 500px; border-radius: 6px; overflow: hidden;">
+                            <iframe title="risk" width="1240" height="541.25"
+                                src="https://app.powerbi.com/reportEmbed?reportId=9c0c3a64-5fc8-479f-8649-9d06ea622634&autoAuth=true&ctid=d1d8f653-6844-454b-a4fc-c52bc2c76e72"
+                                frameborder="0" allowFullScreen="true"></iframe>
+
+
                         </div>
                     </div>
                 </div>
@@ -107,13 +105,27 @@
                         <table id="risk-table" style="width: 100%; border-collapse: collapse;">
                             <thead>
                                 <tr style="background: #f3f4f6; border-bottom: 2px solid #e5e7eb;">
-                                    <th style="padding: 12px; text-align: left; font-size: 12px; font-weight: bold; color: #374151;">Student Name</th>
-                                    <th style="padding: 12px; text-align: left; font-size: 12px; font-weight: bold; color: #374151;">Course</th>
-                                    <th style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">Risk Score</th>
-                                    <th style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">Trend</th>
-                                    <th style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">Engagement Drop</th>
-                                    <th style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">Missed Tasks</th>
-                                    <th style="padding: 12px; text-align: left; font-size: 12px; font-weight: bold; color: #374151;">Action</th>
+                                    <th
+                                        style="padding: 12px; text-align: left; font-size: 12px; font-weight: bold; color: #374151;">
+                                        Student Name</th>
+                                    <th
+                                        style="padding: 12px; text-align: left; font-size: 12px; font-weight: bold; color: #374151;">
+                                        Course</th>
+                                    <th
+                                        style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">
+                                        Risk Score</th>
+                                    <th
+                                        style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">
+                                        Trend</th>
+                                    <th
+                                        style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">
+                                        Engagement Drop</th>
+                                    <th
+                                        style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">
+                                        Missed Tasks</th>
+                                    <th
+                                        style="padding: 12px; text-align: left; font-size: 12px; font-weight: bold; color: #374151;">
+                                        Action</th>
                                 </tr>
                             </thead>
                             <tbody id="risk-tbody"></tbody>
@@ -126,7 +138,9 @@
                     <h2 style="margin: 0 0 15px 0; font-size: 18px; color: #1f2937;">
                         Recommended Interventions
                     </h2>
-                    <div id="interventions-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;"></div>
+                    <div id="interventions-container"
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    </div>
                 </div>
             </div>
         </main>

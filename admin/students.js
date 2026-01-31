@@ -35,7 +35,7 @@ function loadPowerBIReport() {
     if (embedUrl && embedUrl.trim() !== '') {
         // Replace placeholder with iframe
         const container = document.querySelector('.powerbi-container');
-        container.innerHTML = `<iframe title="Students" width="1840" height="800" src="${embedUrl}" frameborder="0" allowFullScreen="true"></iframe>`;
+        container.innerHTML = `<iframe title="Students" width="1240" height="300" src="${embedUrl}" frameborder="0" allowFullScreen="true"></iframe>`;
         console.log('PowerBI report loaded');
     }
 }

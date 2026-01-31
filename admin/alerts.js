@@ -7,34 +7,34 @@ function loadAlerts() {
     const alerts = [
         {
             id: 1,
-            course: 'BIO101',
-            topic: 'Cell Division',
+            course: 'Data Structures',
+            topic: 'Binary Tree Structures',
             severity: 'high',
             affectedStudents: 42,
             percentage: '42%',
-            message: 'High difficulty detected in BIO101 – Cell Division. 42% of students missed tasks. Consider an additional review session.',
+            message: 'High difficulty detected in Data Structures – Binary Tree Structures. 42% of students missed tasks. Consider an additional review session.',
             timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
             action: 'Email/Teams Notification Sent'
         },
         {
             id: 2,
-            course: 'CHEM201',
-            topic: 'Ionic Bonding',
+            course: 'Operating Systems',
+            topic: 'Process Management',
             severity: 'medium',
             affectedStudents: 28,
             percentage: '28%',
-            message: 'Moderate engagement drop-off detected in CHEM201. Consider supplementary materials.',
+            message: 'Moderate engagement drop-off detected in Operating Systems – Process Management. Consider supplementary materials.',
             timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
             action: 'Notification Pending'
         },
         {
             id: 3,
-            course: 'PHYS150',
-            topic: 'Thermodynamics',
+            course: 'Signals and Systems',
+            topic: 'Waveform Analysis',
             severity: 'medium',
             affectedStudents: 15,
             percentage: '15%',
-            message: 'Rising risk trend detected in PHYS150 thermodynamics section.',
+            message: 'Rising risk trend detected in Signals and Systems – Waveform Analysis.',
             timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000),
             action: 'Risk Monitoring'
         }
@@ -92,17 +92,6 @@ function createAlertCard(alert) {
                     <span>✉️ ${alert.action}</span>
                 </div>
             </div>
-            <button style="
-                padding: 8px 16px;
-                background: #3b82f6;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 12px;
-                font-weight: bold;
-                white-space: nowrap;
-            ">View Details</button>
         </div>
     `;
 }

@@ -8,36 +8,36 @@ function loadRiskData() {
     const riskData = [
         {
             id: 1,
-            studentName: 'Alex Johnson',
-            course: 'BIO101',
-            riskScore: 85,
+            studentName: 'Omar Abdullah',
+            course: 'Signals and Systems',
+            riskScore: 99.30,
             trend: 'rising',
             engagementDrop: '35%',
             missedTasks: 5
         },
         {
             id: 2,
-            studentName: 'Maria Garcia',
-            course: 'CHEM201',
-            riskScore: 72,
+            studentName: 'Maya Mohammed',
+            course: 'Data Structures',
+            riskScore: 82.35,
             trend: 'stable',
             engagementDrop: '20%',
             missedTasks: 2
         },
         {
             id: 3,
-            studentName: 'James Wilson',
-            course: 'PHYS150',
-            riskScore: 68,
+            studentName: 'Ali Salem',
+            course: 'Linear Algebra',
+            riskScore: 72,
             trend: 'falling',
             engagementDrop: '15%',
             missedTasks: 1
         },
         {
             id: 4,
-            studentName: 'Sarah Lee',
+            studentName: 'Yousef Hassan',
             course: 'MATH301',
-            riskScore: 45,
+            riskScore: 64.71,
             trend: 'stable',
             engagementDrop: '10%',
             missedTasks: 0
