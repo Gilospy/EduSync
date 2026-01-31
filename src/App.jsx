@@ -18,8 +18,8 @@ const AppContent = () => {
         <Router>
             <Layout>
                 <Routes>
-                    <Route path="/" element={role === 'student' ? <StudentDashboard /> : <Navigate to="/admin" />} />
-                    <Route path="/admin" element={role === 'admin' ? <AdminDashboard /> : <Navigate to="/" />} />
+                    <Route path="/" element={role === 'student' ? <StudentDashboard /> : <Navigate to="/admin/admin.html" />} />
+                    <Route path="/admin/admin.html" element={role === 'admin' ? <AdminDashboard /> : <Navigate to="/" />} />
 
                     {/* Student Routes */}
                     <Route path="/syllabus" element={<SyllabusPage />} />

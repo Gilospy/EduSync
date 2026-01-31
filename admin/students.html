@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students | EduSync</title>
+    <!-- Google Fonts for Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/admin/admin.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>EduMetric</span>
+            </div>
+
+            <nav class="nav-links">
+                <a href="admin.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                <a href="students.html" class="active"><i class="fa-solid fa-users"></i> Students</a>
+                <a href="#"><i class="fa-solid fa-book"></i> Assignments</a>
+                <a href="#"><i class="fa-solid fa-triangle-exclamation"></i> Risk Analysis</a>
+                <a href="#" onclick="openModal()"><i class="fa-solid fa-database"></i> Data Architecture</a>
+            </nav>
+
+            <div class="user-profile">
+                <div class="avatar">AD</div>
+                <div class="info">
+                    <span class="name">Admin User</span>
+                    <span class="role">Institution Admin</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumb">
+                    <h1>Students</h1>
+                    <p class="subtitle">Manage and view all students in your institution</p>
+                </div>
+                <div class="controls">
+                    <input type="text" id="searchBox" class="search-input" placeholder="Search students...">
+                    <button class="btn-refresh"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+                </div>
+            </header>
+
+            <!-- Students Table Section -->
+            <section class="table-section">
+                <div class="table-header">
+                    <h2><i class="fa-solid fa-table"></i> Student List</h2>
+                    <span class="total-count" id="totalCount">Loading...</span>
+                </div>
+
+                <div class="table-container">
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Enrollment Date</th>
+                                <th>Status</th>
+                                <th>Focus Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 40px;">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> Loading students...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/admin/students.js"></script>
+</body>
+
+</html>

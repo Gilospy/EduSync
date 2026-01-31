@@ -58,6 +58,80 @@ body {
     margin-bottom: 40px;
 }
 
+.role-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.role-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 15px;
+    padding: 40px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.role-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+}
+
+.role-card.student-card:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.role-card.teacher-card:hover {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.role-card i {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #667eea;
+    transition: all 0.3s ease;
+}
+
+.role-card.student-card:hover i {
+    color: white;
+}
+
+.role-card.teacher-card:hover i {
+    color: white;
+}
+
+.role-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.role-card.student-card:hover h3,
+.role-card.teacher-card:hover h3 {
+    color: white;
+}
+
+.role-card p {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.role-card.student-card:hover p,
+.role-card.teacher-card:hover p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
 .institutes-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

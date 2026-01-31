@@ -1,8 +1,42 @@
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
+const { createClient } = require('@supabase/supabase-js');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
+
+// ==========================================
+// Proxy Configuration (if behind corporate proxy)
+// ==========================================
+// Set environment variables before running:
+// Windows: $env:HTTPS_PROXY="http://proxy-address:port"
+// Linux/Mac: export HTTPS_PROXY="http://proxy-address:port"
+let customFetch = fetch;
+
+if (process.env.HTTPS_PROXY || process.env.HTTP_PROXY) {
+    console.log('⚠️  Using proxy:', process.env.HTTPS_PROXY || process.env.HTTP_PROXY);
+    try {
+        const HttpsProxyAgent = require('https-proxy-agent');
+        const HttpProxyAgent = require('http-proxy-agent');
+        
+        const proxyUrl = process.env.HTTPS_PROXY || process.env.HTTP_PROXY;
+        const httpsAgent = new HttpsProxyAgent(proxyUrl);
+        const httpAgent = new HttpProxyAgent(proxyUrl);
+        
+        customFetch = (url, options = {}) => {
+            const parsedUrl = new URL(url);
+            if (parsedUrl.protocol === 'https:') {
+                options.agent = httpsAgent;
+            } else {
+                options.agent = httpAgent;
+            }
+            return fetch(url, options);
+        };
+        console.log('✓ Proxy agents configured');
+    } catch (e) {
+        console.error('Install proxy agents: npm install https-proxy-agent http-proxy-agent');
+    }
+}
 
 // ==========================================
 // Mock Institute Database (Replace with real DB)
@@ -138,6 +172,83 @@ app.get('/api/institute-data', requireInstitute, (req, res) => {
 app.post('/api/logout', (req, res) => {
     req.session.destroy();
     res.json({ success: true });
+});
+
+// ==========================================
+// Supabase Proxy Routes (for CORS handling)
+// ==========================================
+const SUPABASE_URL = 'https://nvgbbllooylgumziitvd.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_ZIFRdJdj7qqmWJITwyTCA_rqlTefro';
+
+// Initialize Supabase client with custom fetch if using proxy
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    global: { fetch: customFetch }
+});
+
+// Get all students
+app.get('/api/students', async (req, res) => {
+    try {
+        console.log('\n=== SUPABASE REQUEST (Using Client) ===');
+        console.log('Fetching from:', SUPABASE_URL);
+        
+        const { data, error } = await supabase
+            .from('students')
+            .select('*');
+
+        if (error) {
+            console.error('✗ Supabase error:', error);
+            throw error;
+        }
+
+        console.log('✓ Students fetched successfully:', data.length, 'records');
+        console.log('=== END SUPABASE REQUEST ===\n');
+        res.json(data);
+        
+    } catch (error) {
+        console.error('\n✗ === SUPABASE ERROR ===');
+        console.error('Error:', error.message);
+        console.error('=== END ERROR ===\n');
+        
+        console.log('Using mock data as fallback...');
+        
+        // Fallback: Return mock data
+        const mockStudents = [
+            {
+                id: 1,
+                name: 'John Doe',
+                email: 'john@example.com',
+                enrollment_date: '2026-01-15',
+                status: 'active',
+                focus_time: '4h 30m'
+            },
+            {
+                id: 2,
+                name: 'Jane Smith',
+                email: 'jane@example.com',
+                enrollment_date: '2026-01-10',
+                status: 'active',
+                focus_time: '5h 15m'
+            },
+            {
+                id: 3,
+                name: 'Bob Wilson',
+                email: 'bob@example.com',
+                enrollment_date: '2025-12-20',
+                status: 'at_risk',
+                focus_time: '1h 45m'
+            },
+            {
+                id: 4,
+                name: 'Alice Johnson',
+                email: 'alice@example.com',
+                enrollment_date: '2026-01-05',
+                status: 'inactive',
+                focus_time: '0h 0m'
+            }
+        ];
+        
+        res.json(mockStudents);
+    }
 });
 
 // Root route
