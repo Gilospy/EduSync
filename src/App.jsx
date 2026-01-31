@@ -3,35 +3,34 @@ import { UserProvider, useUser } from './context/UserContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { Layout } from './components/Layout';
 import { StudentDashboard } from './pages/StudentDashboard';
-import { AdminDashboard } from './pages/AdminDashboard';
 import { SyllabusPage } from './pages/SyllabusPage';
 import { StudySprint } from './pages/StudySprint';
-import { FacultyAlerts } from './pages/FacultyAlerts';
-import { RetentionView } from './pages/RetentionView';
 import { StudyCalendar } from './pages/StudyCalendar';
 
 // Wrapper to handle role-based routing
 const AppContent = () => {
     const { role } = useUser();
 
+    // Force redirect to Login if no role passed from Login Hub
+    const userRole = localStorage.getItem('userRole');
+    if (!userRole) {
+        window.location.href = '/login';
+        return null; // Don't render anything while redirecting
+    }
+
     return (
         <Router>
             <Layout>
                 <Routes>
-                    <Route path="/" element={role === 'student' ? <StudentDashboard /> : <Navigate to="/admin/admin.html" />} />
-                    <Route path="/admin/admin.html" element={role === 'admin' ? <AdminDashboard /> : <Navigate to="/" />} />
+                    <Route path="/" element={<StudentDashboard />} />
 
                     {/* Student Routes */}
                     <Route path="/syllabus" element={<SyllabusPage />} />
                     <Route path="/sprint" element={<StudySprint />} />
                     <Route path="/calendar" element={<StudyCalendar />} />
 
-                    {/* Admin Routes */}
-                    <Route path="/files" element={<FacultyAlerts />} />
-                    <Route path="/retention" element={<RetentionView />} />
-
-                    {/* Fallback routes for demo */}
-                    <Route path="*" element={<Navigate to={role === 'student' ? "/" : "/admin"} />} />
+                    {/* Fallback */}
+                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Layout>
         </Router>

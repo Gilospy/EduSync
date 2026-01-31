@@ -10,25 +10,18 @@ export const Layout = ({ children }) => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   const handleRoleSwitch = () => {
-    const newRole = role === 'student' ? 'admin' : 'student';
-    setRole(newRole);
-    navigate(newRole === 'student' ? '/' : '/admin');
+    // Clear auth state
+    localStorage.removeItem('userRole');
+    // Redirect to the Login Page (Hub)
+    window.location.href = '/login';
   };
 
-  const studentLinks = [
+  const links = [
     { to: "/", icon: LayoutDashboard, label: "Dashboard" },
     { to: "/calendar", icon: Calendar, label: "Calendar" },
     { to: "/syllabus", icon: BookOpen, label: "Syllabus" },
     { to: "/sprint", icon: Clock, label: "Sprint" },
   ];
-
-  const adminLinks = [
-    { to: "/admin", icon: BarChart2, label: "Overview" },
-    { to: "/retention", icon: School, label: "Retention" },
-    { to: "/files", icon: ShieldAlert, label: "Alerts" },
-  ];
-
-  const links = role === 'student' ? studentLinks : adminLinks;
 
   return (
     <div className="layout-top-nav">
@@ -41,7 +34,7 @@ export const Layout = ({ children }) => {
             </div>
             <div className="brand-text">
               <h2>EduSync AI</h2>
-              <span className="role-chip">{role === 'student' ? 'Student' : 'Faculty'}</span>
+              <span className="role-chip">Student Portal</span>
             </div>
           </div>
 
@@ -94,8 +87,8 @@ export const Layout = ({ children }) => {
             ))}
             <div className="mobile-actions">
               <ThemeToggle />
-              <button className="btn btn-ghost" onClick={handleRoleSwitch} style={{ justifyContent: 'flex-start', color: 'var(--status-warning)' }}>
-                Switch to {role === 'student' ? 'Admin' : 'Student'}
+              <button onClick={handleRoleSwitch} className="btn btn-ghost" style={{ justifyContent: 'flex-start', color: 'var(--status-warning)', textDecoration: 'none' }}>
+                Log Out / Switch Profile
               </button>
             </div>
           </div>

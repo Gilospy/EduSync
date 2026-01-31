@@ -11,6 +11,14 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true
+      },
+      '/dashboard': {
+        target: 'http://localhost:5000',
+        changeOrigin: true
+      },
+      '/login': {
+        target: 'http://localhost:5000',
+        changeOrigin: true
       }
     }
   },
