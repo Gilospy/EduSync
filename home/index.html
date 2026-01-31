@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSync Login | LMS Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/home/index.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h1>EduSync</h1>
+            </div>
+
+            <h2>Institute Analytics Dashboard</h2>
+            <p class="subtitle">Select your institution to access your analytics</p>
+
+            <div id="institutes-list" class="institutes-list">
+                <div class="loading">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    Loading institutions...
+                </div>
+            </div>
+
+            <div class="login-form hidden" id="login-form">
+                <input type="hidden" id="selectedInstituteId">
+                <button class="btn-back" onclick="goBack()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <button class="btn-login" onclick="login()">Access Dashboard</button>
+            </div>
+
+            <div class="footer">
+                <p>&copy; 2026 EduSync. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/home/index.js"></script>
+</body>
+
+</html>
