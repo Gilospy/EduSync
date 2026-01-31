@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Retention | EduSync</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/admin/admin.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>EduMetric</span>
+            </div>
+
+            <nav class="nav-links">
+                <a href="admin.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                <a href="students.html"><i class="fa-solid fa-users"></i> Students</a>
+                <a href="alerts.html"><i class="fa-solid fa-bell"></i> Faculty Alerts</a>
+                <a href="retention.html" class="active"><i class="fa-solid fa-triangle-exclamation"></i> Retention</a>
+                <a href="#"><i class="fa-solid fa-book"></i> Assignments</a>
+            </nav>
+
+            <div class="user-profile">
+                <div class="avatar">AD</div>
+                <div class="info">
+                    <span class="name">Admin User</span>
+                    <span class="role">Institution Admin</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumb">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Student Risk & Retention Analytics
+                </div>
+                <div class="top-bar-actions">
+                    <button class="btn-refresh"><i class="fa-solid fa-sync"></i> Refresh</button>
+                    <button class="btn-export"><i class="fa-solid fa-download"></i> Export</button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Description -->
+                <div style="margin-bottom: 30px;">
+                    <h1 style="margin: 0 0 10px 0; font-size: 24px; color: #1f2937;">
+                        Student Risk & Retention Analytics
+                    </h1>
+                    <p style="margin: 0; color: #6b7280; font-size: 14px;">
+                        Monitor engagement drop-off, risk trends, and intervention opportunities
+                    </p>
+                </div>
+
+                <!-- Risk Summary Stats -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                    <div class="kpi-card">
+                        <div class="label">HIGH RISK STUDENTS</div>
+                        <div class="value" style="color: #ef4444;">12</div>
+                        <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">Immediate intervention needed</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="label">ENGAGEMENT DROP-OFF</div>
+                        <div class="value" style="color: #f59e0b;">24%</div>
+                        <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">Avg across courses</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="label">RETENTION RATE</div>
+                        <div class="value" style="color: #3b82f6;">88%</div>
+                        <div style="font-size: 12px; color: #6b7280; margin-top: 8px;">Course completion</div>
+                    </div>
+                </div>
+
+                <!-- Risk Heatmap -->
+                <div style="margin-bottom: 30px;">
+                    <h2 style="margin: 0 0 15px 0; font-size: 18px; color: #1f2937;">
+                        Power BI Risk Trends & Course Heatmap
+                    </h2>
+                    <div class="powerbi-container" style="background: #f9fafb; padding: 20px; border-radius: 8px;">
+                        <div class="powerbi-wrapper" style="width: 100%; height: 500px; border-radius: 6px; overflow: hidden;">
+                            <iframe title="Risk Trends Heatmap"
+                                width="100%"
+                                height="100%"
+                                src="https://app.powerbi.com/reportEmbed?reportId=50204a66-c6a3-425d-8043-00ca0f59bf3f&autoAuth=true&ctid=d1d8f653-6844-454b-a4fc-c52bc2c76e72"
+                                frameborder="0"
+                                allowFullScreen="true"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- At-Risk Students Table -->
+                <div style="margin-bottom: 30px;">
+                    <h2 style="margin: 0 0 15px 0; font-size: 18px; color: #1f2937;">
+                        Students Requiring Attention
+                    </h2>
+                    <div style="overflow-x: auto; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+                        <table id="risk-table" style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background: #f3f4f6; border-bottom: 2px solid #e5e7eb;">
+                                    <th style="padding: 12px; text-align: left; font-size: 12px; font-weight: bold; color: #374151;">Student Name</th>
+                                    <th style="padding: 12px; text-align: left; font-size: 12px; font-weight: bold; color: #374151;">Course</th>
+                                    <th style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">Risk Score</th>
+                                    <th style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">Trend</th>
+                                    <th style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">Engagement Drop</th>
+                                    <th style="padding: 12px; text-align: center; font-size: 12px; font-weight: bold; color: #374151;">Missed Tasks</th>
+                                    <th style="padding: 12px; text-align: left; font-size: 12px; font-weight: bold; color: #374151;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="risk-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Intervention Strategies -->
+                <div>
+                    <h2 style="margin: 0 0 15px 0; font-size: 18px; color: #1f2937;">
+                        Recommended Interventions
+                    </h2>
+                    <div id="interventions-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/admin/retention.js"></script>
+</body>
+
+</html>
