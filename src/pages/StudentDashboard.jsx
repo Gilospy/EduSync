@@ -4,13 +4,7 @@ import { MOCK_STUDENT, MOCK_ASSIGNMENTS } from '../data/mock';
 import { Clock, CheckCircle, AlertCircle, Calendar as CalendarIcon, ArrowRight, Loader, X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
-// Inline keyframes for spinner
-const spinKeyframes = `
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-`;
+
 
 export const StudentDashboard = () => {
     const { theme } = useTheme();
