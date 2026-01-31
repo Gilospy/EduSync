@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS Analytics Dashboard | Power BI</title>
+    <!-- Google Fonts for Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="index.css">
+    <!-- Power BI Client SDK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/powerbi-client/2.22.0/powerbi.min.js"></script>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>EduMetric</span>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#" class="active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                <a href="#"><i class="fa-solid fa-users"></i> Students</a>
+                <a href="#"><i class="fa-solid fa-book"></i> Assignments</a>
+                <a href="#"><i class="fa-solid fa-triangle-exclamation"></i> Risk Analysis</a>
+                <a href="#" onclick="openModal()"><i class="fa-solid fa-database"></i> Data Architecture</a>
+            </nav>
+
+            <div class="user-profile">
+                <div class="avatar">AD</div>
+                <div class="info">
+                    <span class="name">Admin User</span>
+                    <span class="role">Institution Admin</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="breadcrumb">
+                    <h1>Overview</h1>
+                    <p class="subtitle">Real-time student engagement & performance tracking</p>
+                </div>
+                <div class="controls">
+                    <button class="btn-refresh"><i class="fa-solid fa-rotate-right"></i> Refresh Data</button>
+                    <button class="btn-export"><i class="fa-solid fa-file-export"></i> Export Report</button>
+                </div>
+            </header>
+
+            <!-- KPI Cards Row -->
+            <section class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="icon-box info"><i class="fa-solid fa-user-graduate"></i></div>
+                    <div class="kpi-data">
+                        <h3>Total Students</h3>
+                        <span class="value">2,543</span>
+                        <span class="trend positive"><i class="fa-solid fa-arrow-trend-up"></i> +12%</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="icon-box purple"><i class="fa-solid fa-clock"></i></div>
+                    <div class="kpi-data">
+                        <h3>Avg Focus Time</h3>
+                        <span class="value">4h 12m</span>
+                        <span class="trend positive"><i class="fa-solid fa-arrow-trend-up"></i> +5%</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="icon-box warning"><i class="fa-solid fa-clipboard-check"></i></div>
+                    <div class="kpi-data">
+                        <h3>Completion Rate</h3>
+                        <span class="value">87.4%</span>
+                        <span class="trend negative"><i class="fa-solid fa-arrow-trend-down"></i> -2.1%</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="icon-box danger"><i class="fa-solid fa-circle-exclamation"></i></div>
+                    <div class="kpi-data">
+                        <h3>At Risk</h3>
+                        <span class="value">148</span>
+                        <span class="trend negative"><i class="fa-solid fa-arrow-trend-up"></i> +8 students</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Power BI Embedded Container -->
+            <section class="report-section">
+                <div class="report-header">
+                    <h2><i class="fa-solid fa-chart-simple"></i> Interactive Analytics</h2>
+                    <div class="live-indicator">
+                        <span class="dot"></span> Live Connection
+                    </div>
+                </div>
+                <div id="powerbi-container" class="powerbi-wrapper">
+                    <!-- The Power BI Iframe will be injected here by script.js -->
+                    <div class="placeholder-message">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        <p>Initializing Power BI Service...</p>
+                        <small>If report does not load, verify your Token and Embed URL in script.js</small>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Data Architecture Modal -->
+    <div id="architecture-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Data Architecture Explained</h2>
+                <button onclick="closeModal()" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <h3>1. Retrieval</h3>
+                <p>Data is extracted nightly from the <strong>LMS PostgreSQL DB</strong> and <strong>Focus Tracking
+                        API</strong>.</p>
+
+                <h3>2. Processing</h3>
+                <p>An Azure Data Factory pipeline transforms raw logs into a Star Schema (Fact_Attendance, Fact_Grades).
+                </p>
+
+                <h3>3. Calculation (DAX)</h3>
+                <p>Power BI calculates metrics like <em>Risk Score</em> dynamically based on weighted averages of
+                    attendance and grades.</p>
+
+                <h3>4. Embedding</h3>
+                <p>This web app authenticates via Azure AD Service Principal to securely render the report without
+                    requiring user licenses.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
