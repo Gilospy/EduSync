@@ -60,12 +60,10 @@ Return ONLY the JSON object, no additional text.`;
         console.log(groqResponse);
         console.log("--------------------------------------------------");
 
-        // Try to parse the JSON response
         try {
             const parsed = JSON.parse(groqResponse);
             return parsed;
         } catch (parseError) {
-            // If JSON parsing fails, try to extract JSON from the response
             const jsonMatch = groqResponse.match(/\{[\s\S]*\}/);
             if (jsonMatch) {
                 return JSON.parse(jsonMatch[0]);
@@ -79,3 +77,84 @@ Return ONLY the JSON object, no additional text.`;
         throw error;
     }
 };
+
+/**
+ * Break down an assignment into structured micro-steps using Groq API
+ */
+exports.breakdownAssignment = async (rawContent) => {
+    if (!groqApiKey) {
+        console.log("Groq API key not found. Cannot break down assignment.");
+        return null;
+    }
+
+    try {
+        const groq = new Groq({ apiKey: groqApiKey });
+
+        const systemPrompt = `You are an AI assistant that breaks down academic assignments into actionable micro-steps to help students complete their work efficiently.
+
+Given the assignment details, create a structured breakdown with the following JSON format:
+
+{
+  "assignmentTitle": "Title of the assignment",
+  "courseCode": "Course code",
+  "courseName": "Course name",
+  "dueDate": "Due date if mentioned",
+  "totalSteps": number,
+  "estimatedHours": number,
+  "steps": [
+    {
+      "stepNumber": 1,
+      "title": "Step title (e.g., 'Research sources')",
+      "description": "Detailed description of what to do",
+      "estimatedMinutes": number,
+      "tips": ["Helpful tip 1", "Helpful tip 2"]
+    }
+  ]
+}
+
+Break down the assignment into logical steps such as:
+- Researching sources/materials
+- Understanding requirements
+- Drafting an outline/plan
+- Working on initial draft/implementation
+- Review and refinement
+- Final submission preparation
+
+Return ONLY the JSON object, no additional text.`;
+
+        console.log("Calling Groq API for assignment breakdown...");
+
+        const chatCompletion = await groq.chat.completions.create({
+            model: 'llama-3.3-70b-versatile',
+            messages: [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: `Break down the following assignment into micro-steps:\n\n${rawContent}` }
+            ],
+            temperature: 0.3,
+            max_tokens: 2000,
+        });
+
+        const groqResponse = chatCompletion.choices[0].message.content;
+        console.log("--------------------------------------------------");
+        console.log("GROQ ASSIGNMENT BREAKDOWN:");
+        console.log(groqResponse);
+        console.log("--------------------------------------------------");
+
+        try {
+            const parsed = JSON.parse(groqResponse);
+            return parsed;
+        } catch (parseError) {
+            const jsonMatch = groqResponse.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                return JSON.parse(jsonMatch[0]);
+            }
+            console.error("Failed to parse Groq response as JSON:", parseError);
+            return { rawResponse: groqResponse };
+        }
+
+    } catch (error) {
+        console.error("Error calling Groq API:", error);
+        throw error;
+    }
+};
+

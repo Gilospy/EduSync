@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const syllabusRoutes = require('./routes/syllabusRoutes');
+const assignmentRoutes = require('./routes/assignmentRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/syllabus', syllabusRoutes);
+app.use('/api/assignments', assignmentRoutes);
 
 // Root route
 app.get('/', (req, res) => {

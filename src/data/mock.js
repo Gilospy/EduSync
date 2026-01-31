@@ -4,58 +4,51 @@ export const MOCK_STUDENT = {
     gpa: 3.8,
     stressLevel: "Moderate", // Low, Moderate, High
     nextAssignment: {
-        course: "CS302: Algorithms",
-        title: "Dynamic Programming Problem Set",
+        course: "CMP-257: Application Programming",
+        title: "Web-based Graphical User Interfaces",
         due: "Tomorrow, 11:59 PM",
-        weight: "15%",
-        estimatedTime: "2.5 hrs"
+        weight: "20%",
+        estimatedTime: "4 hrs"
     },
     schedule: [
-        { time: "10:00 AM", course: "CS302 Lecture", type: "class" },
-        { time: "01:00 PM", course: "Study Block: Algorithms", type: "study", duration: "1h" },
-        { time: "03:30 PM", course: "BIO101 Lab", type: "class" }
+        { time: "10:00 AM", course: "CMP-257 Lecture", type: "class" },
+        { time: "01:00 PM", course: "Study Block: GUI Design", type: "study", duration: "2h" },
+        { time: "03:30 PM", course: "DES-101 Studio", type: "class" }
     ]
 };
 
 export const MOCK_ASSIGNMENTS = [
     {
         id: 1,
-        course: "CS302: Algorithms",
-        title: "Dynamic Programming Problem Set",
+        course: "CMP-257: Application Programming",
+        title: "Web-based Graphical User Interfaces",
         status: "In Progress",
-        progress: 65,
+        progress: 35,
         dueDate: "2024-10-24",
         priority: "High",
+        pdfFile: "CMP-257.pdf",
         steps: [
-            { id: 1, text: "Wait for lecture notes", done: true },
-            { id: 2, text: "Draft pseudocode for Q1-Q3", done: true },
-            { id: 3, text: "Implement Python solutions", done: false },
-            { id: 4, text: "Write complexity analysis", done: false },
+            { id: 1, text: "Review GUI design principles", done: true },
+            { id: 2, text: "Set up development environment", done: false },
+            { id: 3, text: "Implement responsive layout", done: false },
+            { id: 4, text: "Add interactive components", done: false },
         ]
     },
     {
         id: 2,
-        course: "BIO101: Cell Biology",
-        title: "Mitosis Research Paper",
+        course: "DES-101: Visual Communication Design",
+        title: "Design Principles",
         status: "Not Started",
         progress: 0,
         dueDate: "2024-10-28",
         priority: "Medium",
+        pdfFile: "DES-101.pdf",
         steps: [
-            { id: 1, text: "Find 3 reputable sources", done: false },
-            { id: 2, text: "Create outline", done: false },
-            { id: 3, text: "First draft", done: false },
+            { id: 1, text: "Research design principles", done: false },
+            { id: 2, text: "Create mood board", done: false },
+            { id: 3, text: "Draft initial concepts", done: false },
+            { id: 4, text: "Refine and finalize", done: false },
         ]
-    },
-    {
-        id: 3,
-        course: "HIS240: Modern History",
-        title: "Midterm Review",
-        status: "Completed",
-        progress: 100,
-        dueDate: "2024-10-20",
-        priority: "Low",
-        steps: []
     }
 ];
 

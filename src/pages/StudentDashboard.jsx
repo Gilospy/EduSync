@@ -1,14 +1,147 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from '../components/Card';
 import { MOCK_STUDENT, MOCK_ASSIGNMENTS } from '../data/mock';
-import { Clock, CheckCircle, AlertCircle, Calendar as CalendarIcon, ArrowRight } from 'lucide-react';
+import { Clock, CheckCircle, AlertCircle, Calendar as CalendarIcon, ArrowRight, Loader, X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+
+// Inline keyframes for spinner
+const spinKeyframes = `
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+`;
 
 export const StudentDashboard = () => {
     const { theme } = useTheme();
+    const [loading, setLoading] = useState(null); // assignment id being loaded
+    const [breakdown, setBreakdown] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const handleViewBreakdown = async (assignment) => {
+        if (!assignment.pdfFile) {
+            alert('No PDF file associated with this assignment');
+            return;
+        }
+
+        setLoading(assignment.id);
+        try {
+            const response = await fetch(`http://localhost:5000/api/assignments/breakdown/${assignment.pdfFile}`, {
+                method: 'POST',
+            });
+            const data = await response.json();
+            console.log('Breakdown response:', data);
+
+            if (data.success) {
+                setBreakdown({ ...data.data, course: assignment.course, originalTitle: assignment.title });
+                setShowModal(true);
+            } else {
+                alert('Failed to get breakdown: ' + (data.error || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error('Error getting breakdown:', error);
+            alert('Error getting breakdown. Check if backend is running.');
+        } finally {
+            setLoading(null);
+        }
+    };
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-lg)' }}>
+            {/* Breakdown Modal */}
+            {showModal && breakdown && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    background: 'rgba(0,0,0,0.7)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1000,
+                    padding: '20px'
+                }}>
+                    <div style={{
+                        background: 'var(--color-bg)',
+                        borderRadius: 'var(--radius-lg)',
+                        maxWidth: '700px',
+                        width: '100%',
+                        maxHeight: '80vh',
+                        overflow: 'auto',
+                        padding: 'var(--spacing-lg)'
+                    }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-md)' }}>
+                            <div>
+                                <h2 style={{ margin: 0 }}>{breakdown.assignmentTitle || breakdown.originalTitle}</h2>
+                                <p style={{ color: 'var(--color-text-secondary)', margin: '4px 0 0' }}>{breakdown.course}</p>
+                            </div>
+                            <button
+                                onClick={() => setShowModal(false)}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-text-secondary)' }}
+                            >
+                                <X size={24} />
+                            </button>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: 'var(--spacing-md)', marginBottom: 'var(--spacing-lg)', flexWrap: 'wrap' }}>
+                            <div style={{ padding: '12px 16px', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-sm)' }}>
+                                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-primary)' }}>{breakdown.totalSteps || breakdown.steps?.length || 0}</div>
+                                <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>Steps</div>
+                            </div>
+                            <div style={{ padding: '12px 16px', background: 'var(--color-bg-secondary)', borderRadius: 'var(--radius-sm)' }}>
+                                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--status-warning)' }}>{breakdown.estimatedHours || '~3'}</div>
+                                <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>Hours</div>
+                            </div>
+                        </div>
+
+                        <h3 style={{ marginBottom: 'var(--spacing-md)' }}>Micro-Steps Breakdown</h3>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                            {breakdown.steps?.map((step, idx) => (
+                                <div key={idx} style={{
+                                    padding: 'var(--spacing-md)',
+                                    background: 'var(--color-bg-secondary)',
+                                    borderRadius: 'var(--radius-sm)',
+                                    borderLeft: '4px solid var(--color-primary)'
+                                }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                                        <span style={{
+                                            width: '24px', height: '24px',
+                                            background: 'var(--color-primary)',
+                                            color: 'white',
+                                            borderRadius: '50%',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                            fontSize: '0.8rem', fontWeight: 700
+                                        }}>{step.stepNumber || idx + 1}</span>
+                                        <strong>{step.title}</strong>
+                                        {step.estimatedMinutes && (
+                                            <span style={{ marginLeft: 'auto', fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>
+                                                ~{step.estimatedMinutes} min
+                                            </span>
+                                        )}
+                                    </div>
+                                    <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>{step.description}</p>
+                                    {step.tips && step.tips.length > 0 && (
+                                        <div style={{ marginTop: '8px', padding: '8px', background: 'var(--color-bg)', borderRadius: 'var(--radius-sm)' }}>
+                                            <strong style={{ fontSize: '0.8rem' }}>💡 Tips:</strong>
+                                            <ul style={{ margin: '4px 0 0', paddingLeft: '16px', fontSize: '0.85rem' }}>
+                                                {step.tips.map((tip, tipIdx) => <li key={tipIdx}>{tip}</li>)}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+
+                        <button
+                            className="btn btn-primary"
+                            style={{ width: '100%', marginTop: 'var(--spacing-lg)' }}
+                            onClick={() => setShowModal(false)}
+                        >
+                            Got it! Start Working
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Welcome Section */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                 <div>
@@ -124,8 +257,17 @@ export const StudentDashboard = () => {
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                                 {assignment.status !== 'Completed' && (
-                                    <button className="btn btn-ghost" style={{ fontSize: '0.9rem' }}>
-                                        View Breakdown <ArrowRight size={16} />
+                                    <button
+                                        className="btn btn-ghost"
+                                        style={{ fontSize: '0.9rem' }}
+                                        onClick={() => handleViewBreakdown(assignment)}
+                                        disabled={loading === assignment.id}
+                                    >
+                                        {loading === assignment.id ? (
+                                            <>Analyzing... <Loader size={16} className="spin" /></>
+                                        ) : (
+                                            <>View Breakdown <ArrowRight size={16} /></>
+                                        )}
                                     </button>
                                 )}
                             </div>
