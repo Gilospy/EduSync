@@ -55,34 +55,21 @@
                 </div>
             </header>
 
-            <!-- Students Table Section -->
-            <section class="table-section">
-                <div class="table-header">
-                    <h2><i class="fa-solid fa-table"></i> Student List</h2>
-                    <span class="total-count" id="totalCount">Loading...</span>
+            <!-- Students Analytics Section with PowerBI -->
+            <section class="report-section">
+                <div class="report-header">
+                    <h2><i class="fa-solid fa-chart-simple"></i> Student Analytics</h2>
+
                 </div>
 
-                <div class="table-container">
-                    <table class="students-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Enrollment Date</th>
-                                <th>Status</th>
-                                <th>Focus Time</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="studentsTableBody">
-                            <tr>
-                                <td colspan="7" style="text-align: center; padding: 40px;">
-                                    <i class="fa-solid fa-spinner fa-spin"></i> Loading students...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- PowerBI Embed Container -->
+                <div class="powerbi-container">
+                    <div class="powerbi-placeholder">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <h3>PowerBI Student Analytics</h3>
+
+                    </div>
+
                 </div>
             </section>
         </main>
