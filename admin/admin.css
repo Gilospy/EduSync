@@ -1,20 +1,13 @@
 :root {
     /* Professional Blue Theme Palette (Matching React App) */
     --bg-body: #F0F9FF;
-    /* Light Sky Blue Background */
     --bg-panel: #FFFFFF;
-    /* White Panels */
     --text-primary: #0C4A6E;
-    /* Deep Ocean Blue */
     --text-secondary: #475569;
-    /* Slate */
 
     --primary-color: #0284C7;
-    /* Sky 600 */
     --primary-light: #E0F2FE;
-    /* Sky 100 */
     --primary-hover: #0369A1;
-    /* Sky 700 */
 
     --success: #059669;
     --warning: #D97706;
@@ -22,7 +15,6 @@
     --info: #0284C7;
 
     --border-color: #CBD5E1;
-    /* Slate 300 */
     --shadow-sm: 0 1px 2px 0 rgba(2, 132, 199, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(2, 132, 199, 0.1);
 
@@ -41,12 +33,15 @@ body {
     color: var(--text-primary);
     font-family: var(--font-body);
     overflow: hidden;
+    /* Prevent body scroll, use container specs */
 }
 
 /* App Container */
 .app-container {
     display: flex;
     height: 100vh;
+    position: relative;
+    /* For mobile sidebar positioning */
 }
 
 /* Sidebar */
@@ -58,7 +53,8 @@ body {
     padding: 2rem 1.5rem;
     border-right: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
-    z-index: 10;
+    z-index: 100;
+    transition: transform 0.3s ease;
 }
 
 .logo {
@@ -136,6 +132,7 @@ body {
     flex: 1;
     overflow-y: auto;
     padding: 2rem;
+    width: 100%;
 }
 
 .top-bar {
@@ -145,10 +142,11 @@ body {
     margin-bottom: 2rem;
 }
 
-.top-bar h1 {
+.breadcrumb h1 {
     font-family: var(--font-heading);
     font-weight: 700;
     color: var(--text-primary);
+    font-size: 1.5rem;
 }
 
 .subtitle {
@@ -157,7 +155,8 @@ body {
     margin-top: 4px;
 }
 
-.controls button {
+.controls button,
+.top-bar-actions button {
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -172,7 +171,7 @@ body {
 .btn-refresh {
     background-color: white;
     color: var(--text-secondary);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color) !important;
     margin-right: 10px;
     box-shadow: var(--shadow-sm);
 }
@@ -212,6 +211,14 @@ body {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
+.kpi-card .label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
 .kpi-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
@@ -232,6 +239,21 @@ body {
     color: var(--primary-color);
 }
 
+.icon-box.purple {
+    background: #F3E8FF;
+    color: #7C3AED;
+}
+
+.icon-box.warning {
+    background: #FEF3C7;
+    color: #D97706;
+}
+
+.icon-box.danger {
+    background: #FEE2E2;
+    color: #DC2626;
+}
+
 .value {
     display: block;
     font-size: 1.75rem;
@@ -241,7 +263,20 @@ body {
     font-family: var(--font-heading);
 }
 
-/* Report Section */
+.trend {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.trend.positive {
+    color: var(--success);
+}
+
+.trend.negative {
+    color: var(--danger);
+}
+
+/* Report Section & PowerBI */
 .report-section {
     background-color: var(--bg-panel);
     border-radius: 16px;
@@ -260,4 +295,195 @@ body {
     border-radius: 8px;
     overflow: hidden;
     border: 1px dashed var(--border-color);
+}
+
+/* Modals */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal-content {
+    background: var(--bg-panel);
+    width: 600px;
+    max-width: 90%;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+/* Search Input */
+.search-input {
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    width: 300px;
+    font-family: var(--font-body);
+}
+
+/* Tables */
+.table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-panel);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+/* Fix for Text Overflow in Tables and Cards */
+p,
+h1,
+h2,
+h3,
+span,
+div,
+td,
+th {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+
+/* Allow text wrap on mobile/small screens for specific columns */
+@media (max-width: 600px) {
+    table {
+        white-space: normal;
+        /* Allow wrapping */
+    }
+
+    td,
+    th {
+        padding: 10px;
+        min-width: 120px;
+        /* Force width if needed */
+    }
+}
+
+th {
+    background: var(--bg-body);
+    padding: 16px;
+    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-color);
+}
+
+td {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+tr:hover {
+    background-color: var(--primary-light);
+}
+
+/* --- RESPONSIVE MOBILE STYLES --- */
+
+.mobile-menu-btn {
+    display: none;
+    /* Hidden on desktop */
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    margin-right: 12px;
+}
+
+@media (max-width: 900px) {
+    .sidebar {
+        position: fixed;
+        left: -280px;
+        /* Off-screen */
+        top: 0;
+        bottom: 0;
+        transform: translateX(0);
+    }
+
+    .sidebar.open {
+        left: 0;
+        /* Slide in */
+        box-shadow: 100px 0 0 rgba(0, 0, 0, 0.2);
+        /* Mock overlay shadow */
+    }
+
+    .mobile-menu-btn {
+        display: inline-block;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .top-bar {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .controls,
+    .top-bar-actions {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-refresh,
+    .btn-export {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .kpi-grid {
+        grid-template-columns: 1fr;
+        /* Stack KPIs */
+    }
+
+    .search-input {
+        width: 100%;
+    }
 }

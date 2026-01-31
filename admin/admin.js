@@ -1,8 +1,16 @@
 // ==========================================
+// Sidebar Toggle (Mobile)
+// ==========================================
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('open');
+}
+
+// ==========================================
 // Load Institute-Specific Dashboard Data
 // ==========================================
 
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
     try {
         // Load dashboard configuration
         const response = await fetch('/api/dashboard-config');
@@ -36,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 function updateKPICards(data) {
     const cards = document.querySelectorAll('.kpi-card');
-    
+
     if (cards[0]) {
         cards[0].querySelector('.value').textContent = data.totalStudents.toLocaleString();
     }
@@ -56,13 +64,13 @@ function initializeEventListeners() {
     const exportBtn = document.querySelector('.btn-export');
 
     if (refreshBtn) {
-        refreshBtn.addEventListener('click', function() {
+        refreshBtn.addEventListener('click', function () {
             alert('Refreshing data... (Power BI will auto-refresh)');
         });
     }
 
     if (exportBtn) {
-        exportBtn.addEventListener('click', function() {
+        exportBtn.addEventListener('click', function () {
             alert('Export feature - Use Power BI export options in the report.');
         });
     }
@@ -85,10 +93,10 @@ function closeModal() {
 }
 
 // Close modal when clicking outside the modal content
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('architecture-modal');
     if (modal) {
-        modal.addEventListener('click', function(event) {
+        modal.addEventListener('click', function (event) {
             if (event.target === modal) {
                 closeModal();
             }

@@ -10,7 +10,7 @@ export const StudentDashboard = () => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-lg)' }}>
             {/* Welcome Section */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+            <div className="dashboard-header">
                 <div>
                     <h1 style={{ fontSize: '2rem', marginBottom: 'var(--spacing-xs)' }}>
                         Welcome back, {MOCK_STUDENT.name.split(' ')[0]}
@@ -24,7 +24,7 @@ export const StudentDashboard = () => {
                 </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'var(--spacing-lg)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 'var(--spacing-lg)' }}>
 
                 {/* Next Up Card */}
                 <Card title="Next Up" className="glass-panel">

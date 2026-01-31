@@ -1,4 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
+// ==========================================
+// Sidebar Toggle
+// ==========================================
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) sidebar.classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
     loadAlerts();
     initializeEventListeners();
 });
@@ -108,14 +116,14 @@ function initializeEventListeners() {
     const exportBtn = document.querySelector('.btn-export');
 
     if (refreshBtn) {
-        refreshBtn.addEventListener('click', function() {
+        refreshBtn.addEventListener('click', function () {
             loadAlerts();
             alert('Alerts refreshed!');
         });
     }
 
     if (exportBtn) {
-        exportBtn.addEventListener('click', function() {
+        exportBtn.addEventListener('click', function () {
             alert('Exporting alerts data...');
         });
     }
