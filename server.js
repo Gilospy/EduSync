@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // ==========================================
 // Mock Institute Database (Replace with real DB)
@@ -86,14 +86,14 @@ app.get('/login', (req, res) => {
 // Handle institute login
 app.post('/api/login', (req, res) => {
     const { instituteId } = req.body;
-    
+
     if (!institutes[instituteId]) {
         return res.status(401).json({ error: 'Invalid institute ID' });
     }
-    
+
     req.session.instituteId = instituteId;
     req.session.instituteName = institutes[instituteId].name;
-    
+
     res.json({ success: true, institute: institutes[instituteId] });
 });
 
@@ -116,7 +116,7 @@ app.get('/api/dashboard-config', requireInstitute, (req, res) => {
     const instituteId = req.session.instituteId;
     const institute = institutes[instituteId];
     const data = instituteData[instituteId];
-    
+
     res.json({
         instituteName: institute.name,
         powerbiConfig: {
