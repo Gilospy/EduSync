@@ -13,7 +13,7 @@ export const Layout = ({ children }) => {
     // Clear auth state
     localStorage.removeItem('userRole');
     // Redirect to the Login Page (Hub)
-    window.location.href = '/login';
+    window.location.href = '/home/index.html';
   };
 
   const links = [
