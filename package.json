@@ -2,7 +2,7 @@
   "name": "edusync",
   "version": "1.0.0",
   "main": "server.js",
-  "description": "SaaS LMS Analytics Dashboard with Multi-Tenancy",
+  "description": "SaaS EduSync Institution with Multi-Tenancy",
   "scripts": {
     "start": "concurrently \"node backend/server.js\" \"vite\"",
     "dev": "concurrently \"node backend/server.js\" \"vite\"",
