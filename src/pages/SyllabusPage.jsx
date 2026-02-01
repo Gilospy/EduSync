@@ -79,7 +79,7 @@ export const SyllabusPage = () => {
                     </div>
                 </Card>
 
-                {/* Parsed Results (Mock) */}
+                {/* Parsed Results */}
                 <Card title="AI Analysis Preview">
                     {result ? (
                         <div>
@@ -87,10 +87,86 @@ export const SyllabusPage = () => {
                                 <Check size={18} color="var(--status-good)" />
                                 <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Analysis Complete</span>
                             </div>
-                            <p>Raw output has been logged to the usage terminal.</p>
-                            <pre style={{ fontSize: '0.7rem', maxHeight: '300px', overflow: 'auto', background: '#f4f4f5', padding: '10px' }}>
-                                {JSON.stringify(result.data, null, 2)}
-                            </pre>
+
+                            {result.data ? (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                                    {/* Course Info */}
+                                    {(result.data.courseTitle || result.data.instructor || result.data.semester || result.data.credits) && (
+                                        <div>
+                                            <h4 style={{ marginBottom: '12px', fontSize: '1rem', borderBottom: '2px solid var(--color-primary)', paddingBottom: '6px' }}>Course Information</h4>
+                                            {result.data.courseTitle && <div style={{ fontSize: '0.9rem', marginBottom: '6px' }}><strong>Course:</strong> {result.data.courseTitle}</div>}
+                                            {result.data.instructor && <div style={{ fontSize: '0.9rem', marginBottom: '6px' }}><strong>Instructor:</strong> {result.data.instructor}</div>}
+                                            {result.data.semester && <div style={{ fontSize: '0.9rem', marginBottom: '6px' }}><strong>Semester:</strong> {result.data.semester}</div>}
+                                            {result.data.credits && <div style={{ fontSize: '0.9rem', marginBottom: '6px' }}><strong>Credits:</strong> {result.data.credits}</div>}
+                                            {result.data.prerequisites && <div style={{ fontSize: '0.9rem', marginBottom: '6px' }}><strong>Prerequisites:</strong> {result.data.prerequisites}</div>}
+                                        </div>
+                                    )}
+
+                                    {/* Grade Breakdown */}
+                                    {result.data.gradeBreakdown && result.data.gradeBreakdown.length > 0 && (
+                                        <div>
+                                            <h4 style={{ marginBottom: '12px', fontSize: '1rem', borderBottom: '2px solid var(--color-primary)', paddingBottom: '6px' }}>Grade Breakdown</h4>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                {result.data.gradeBreakdown.map((item, idx) => (
+                                                    <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', padding: '6px', background: 'var(--color-bg)', borderRadius: 'var(--radius-sm)' }}>
+                                                        <span>{item.category}</span>
+                                                        <span style={{ fontWeight: 600 }}>{item.weight}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Assignments/Deadlines */}
+                                    {result.data.assignments && result.data.assignments.length > 0 && (
+                                        <div>
+                                            <h4 style={{ marginBottom: '12px', fontSize: '1rem', borderBottom: '2px solid var(--color-primary)', paddingBottom: '6px' }}>Assignments & Deadlines</h4>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                                {result.data.assignments.map((assignment, idx) => (
+                                                    <div key={idx} style={{ padding: '10px', background: 'var(--color-bg)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)' }}>
+                                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                                                            <span style={{ fontWeight: 600, fontSize: '0.95rem' }}>{assignment.title}</span>
+                                                            {assignment.weight && <span style={{ fontSize: '0.85rem', color: 'var(--color-primary)', fontWeight: 600 }}>{assignment.weight}</span>}
+                                                        </div>
+                                                        {assignment.dueDate && assignment.dueDate !== 'TBD' && (
+                                                            <div style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '4px' }}>
+                                                                📅 Due: {new Date(assignment.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                            </div>
+                                                        )}
+                                                        {assignment.description && (
+                                                            <div style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginTop: '6px' }}>
+                                                                {assignment.description}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Topics */}
+                                    {result.data.topics && result.data.topics.length > 0 && (
+                                        <div>
+                                            <h4 style={{ marginBottom: '12px', fontSize: '1rem', borderBottom: '2px solid var(--color-primary)', paddingBottom: '6px' }}>Course Topics</h4>
+                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                                {result.data.topics.map((topic, idx) => (
+                                                    <span key={idx} style={{
+                                                        padding: '6px 12px',
+                                                        background: 'var(--color-bg-secondary)',
+                                                        borderRadius: 'var(--radius-sm)',
+                                                        fontSize: '0.85rem',
+                                                        border: '1px solid var(--color-border)'
+                                                    }}>
+                                                        {topic}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <p style={{ fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>No data available to display.</p>
+                            )}
                         </div>
                     ) : (
                         <div>
