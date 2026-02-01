@@ -8,6 +8,7 @@ dotenv.config();
 
 const syllabusRoutes = require('./routes/syllabusRoutes');
 const assignmentRoutes = require('./routes/assignmentRoutes');
+const calendarRoutes = require('./routes/calendarRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -88,6 +89,7 @@ function requireInstitute(req, res, next) {
 // ==========================================
 app.use('/api/syllabus', syllabusRoutes);
 app.use('/api/assignments', assignmentRoutes);
+app.use('/api/calendar', calendarRoutes);
 
 // ==========================================
 // Legacy/Auth Routes (Merged from root server.js)
