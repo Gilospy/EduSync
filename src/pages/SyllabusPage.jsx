@@ -16,7 +16,7 @@ export const SyllabusPage = () => {
         formData.append('syllabus', file);
 
         try {
-            const response = await fetch('http://localhost:5000/api/syllabus/upload', {
+            const response = await fetch('/api/syllabus/upload', {
                 method: 'POST',
                 body: formData,
             });

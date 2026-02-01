@@ -20,7 +20,7 @@ export const StudentDashboard = () => {
 
         setLoading(assignment.id);
         try {
-            const response = await fetch(`http://localhost:5000/api/assignments/breakdown/${assignment.pdfFile}`, {
+            const response = await fetch(`/api/assignments/breakdown/${assignment.pdfFile}`, {
                 method: 'POST',
             });
             const data = await response.json();
