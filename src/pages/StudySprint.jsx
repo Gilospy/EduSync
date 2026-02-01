@@ -81,25 +81,22 @@ export const StudySprint = () => {
                     ))}
                 </div>
 
-                <Card className="glass-panel" style={{ padding: '60px 40px', position: 'relative', overflow: 'hidden' }}>
-
-                    {/* Active Mode Indicator */}
-                    <div style={{
-                        position: 'absolute',
-                        top: '20px',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        color: MODES[mode].color,
-                        opacity: 0.8
-                    }}>
-                        <CurrentIcon size={18} />
-                        <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>{MODES[mode].label}</span>
-                    </div>
+                <Card className="glass-panel" style={{ padding: '40px', position: 'relative', overflow: 'hidden' }}>
 
                     <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        {/* Active Mode Indicator */}
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            color: MODES[mode].color,
+                            opacity: 0.8,
+                            marginBottom: '10px'
+                        }}>
+                            <CurrentIcon size={18} />
+                            <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>{MODES[mode].label}</span>
+                        </div>
+
                         <div style={{ fontSize: '8rem', fontWeight: 800, fontVariantNumeric: 'tabular-nums', letterSpacing: '-4px', color: MODES[mode].color, lineHeight: 1, transition: 'color 0.3s ease' }}>
                             {formatTime(timeLeft)}
                         </div>
