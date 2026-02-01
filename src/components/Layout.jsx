@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useUser } from '../context/UserContext';
 import { ThemeToggle } from './ThemeToggle';
-import { LayoutDashboard, BookOpen, Calendar, Clock, BarChart2, ShieldAlert, LogOut, GraduationCap, School, Menu, X } from 'lucide-react';
+import { LayoutDashboard, BookOpen, Calendar, Clock, BarChart2, ShieldAlert, LogOut, GraduationCap, School, Menu, X, Award } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 export const Layout = ({ children }) => {
@@ -19,6 +19,7 @@ export const Layout = ({ children }) => {
   const links = [
     { to: "/", icon: LayoutDashboard, label: "Dashboard" },
     { to: "/calendar", icon: Calendar, label: "Calendar" },
+    { to: "/grades", icon: Award, label: "Grades" },
     { to: "/syllabus", icon: BookOpen, label: "Syllabus" },
     { to: "/sprint", icon: Clock, label: "Sprint" },
   ];

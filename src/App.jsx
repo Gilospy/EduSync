@@ -6,6 +6,7 @@ import { StudentDashboard } from './pages/StudentDashboard';
 import { SyllabusPage } from './pages/SyllabusPage';
 import { StudySprint } from './pages/StudySprint';
 import { StudyCalendar } from './pages/StudyCalendar';
+import { GradesView } from './pages/GradesView';
 
 // Wrapper to handle role-based routing
 const AppContent = () => {
@@ -28,6 +29,7 @@ const AppContent = () => {
                     <Route path="/syllabus" element={<SyllabusPage />} />
                     <Route path="/sprint" element={<StudySprint />} />
                     <Route path="/calendar" element={<StudyCalendar />} />
+                    <Route path="/grades" element={<GradesView />} />
 
                     {/* Fallback */}
                     <Route path="*" element={<Navigate to="/" />} />
